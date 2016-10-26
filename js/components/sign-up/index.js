@@ -1,7 +1,7 @@
 'use strict';
 
 import React, { Component } from 'react';
-import { Image, Navigator } from 'react-native';
+import { Image, Navigator, AsyncStorage } from 'react-native';
 import { connect } from 'react-redux';
 
 import { popRoute } from '../../actions/route';
@@ -23,8 +23,19 @@ class SignUp extends Component {
       firstName: '',
       lastName: '',
       medicalId: '',
-      result: ''
+      result: '',
+      userId: '',
+      pushToken: ''
     };
+    
+    AsyncStorage.getItem("@UserId:key").then((value) => {
+        this.setState({userId: JSON.parse(value)});
+    }).done();
+
+    AsyncStorage.getItem("@pushToken:key").then((value) => {
+        this.setState({pushToken: JSON.parse(value)});
+    }).done();
+    
   }
 
   navigateTo(route) {
@@ -34,27 +45,30 @@ class SignUp extends Component {
 
   signUp() {
     
-    let {email,password, firstName, lastName, medicalId} = this.state;
+
+
+    let {email,password, firstName, lastName, medicalId, userId, pushToken} = this.state;
+
     let error = '';
 
-    if (email == '') {
-      error = "Please enter in a valid email.\n";
-    }
-    if (password == '') {
-      error += "Please enter in a password.\n";
-    }
-
     if (firstName == '') {
-      error += "Please enter in your First Name.\n";
+      error += "\u2022 Please enter in your First Name.\n";
     }
     if (lastName == '') {
-      error += "Please enter in your Last Name.\n";
+      error += "\u2022 Please enter in your Last Name.\n";
     }
 
+    // add regex email check
+    if (email == '') {
+      error += "\u2022 Please enter in a valid Email.\n";
+    }
+    if (password == '') {
+      error += "\u2022 Please enter in a Password.";
+    }
 
     if (error == '') {
 
-      fetch('http://www.appointshare.com/signup.php', {
+      fetch('http://app.appointshare.com/remote_registration', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -65,18 +79,19 @@ class SignUp extends Component {
           password: password,
           firstName: firstName,
           lastName: lastName,
-          medicalId: medicalId
+          medicalId: medicalId,
+          os_userId : userId,
+          os_pushToken: pushToken
         })
       })
       .then((response) => response.json())
       .then((responseData) => {
-        
+        console.log(responseData);
         if (responseData == 'email_in_use') {
           alert('Email already exists');
           
         } else{
         alert(responseData, 'Success');
-        // console.log(responseData);
     
          this.popRoute();
         }
@@ -91,7 +106,20 @@ class SignUp extends Component {
 
   }
 
-
+  renderFeedback () {
+      if (this.state.result) {
+          return (
+            <View style={styles.viewFeedback}>
+            <Text style={styles.feedback}>{this.state.result}</Text>
+            </View>
+          );
+      } else {
+          return null;
+      }
+  }
+  
+  
+  
     popRoute() {
         this.props.popRoute();
     }
@@ -105,12 +133,12 @@ class SignUp extends Component {
                             <Icon name='ios-arrow-back' style={{fontSize: 30, lineHeight: 32}} />
                         </Button>
 
-                        <Title>SignUp</Title>
+                        <Title>Sign Up</Title>
                     </Header>
 
                     <Content padder style={{backgroundColor: 'transparent'}}>
                         <View padder>
-                        <Text style={styles.feedback}>{this.state.result}</Text>
+                        {this.renderFeedback()}
                             <View style={styles.mb25}>
                                 <InputGroup>
                                     <Icon name='ios-person' />

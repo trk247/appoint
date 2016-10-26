@@ -21,17 +21,26 @@ module.exports = StyleSheet.create({
 
     bg: {
         flex: 1,
-        marginTop: (deviceHeight/2)-30,
+        marginTop: (deviceHeight/2)-45,
         backgroundColor: '#0097d6',
-        paddingTop: 20,
+        paddingTop: 5,
         paddingLeft: 20,
         paddingRight: 20,
         paddingBottom: 70
     },
+    viewFeedback: {
+      borderColor: '#000',
+      borderWidth: 1,
+      borderRadius: 2,
+      
+    },
     feedback: {
       textAlign: 'left',
-      color: '#fff',
-      fontWeight: 'bold'
+      color: '#D63301',
+      backgroundColor: '#FFCCBA',
+      fontWeight: 'bold',
+      borderRadius: 2,
+      padding: 10
     },
     underlayColor: {
       color: '#fff'

@@ -42,7 +42,21 @@ module.exports = StyleSheet.create({
     marginTop: 10,
     // backgroundColor: '#0097d6'
     
-  }
+  },
+  viewFeedback: {
+    borderColor: '#000',
+    borderWidth: 1,
+    borderRadius: 2,
+    margin:5
+  },
+  feedback: {
+    textAlign: 'left',
+    color: '#D63301',
+    backgroundColor: '#FFCCBA',
+    fontWeight: 'bold',
+    borderRadius: 2,
+    padding: 10
+  },
     
     
 
