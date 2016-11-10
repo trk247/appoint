@@ -32,14 +32,20 @@ class Contacts extends Component {
     }
     
     renderFeedback () {
-        if (this.state.result) {
+        if (this.state.result === 'Please enter in a message.') {
             return (
               <View style={styles.viewFeedback}>
               <Text style={styles.feedback}>{this.state.result}</Text>
               </View>
             );
         } else {
-            return null;
+            if (this.state.result === 'Your message has been received.') {
+              return (<View style={styles.viewGreenFeedback}>
+              <Text style={styles.greenFeedback}>{this.state.result}</Text>
+              </View>);
+            } else {
+              return null;
+            }
         }
     }
 
@@ -69,10 +75,10 @@ class Contacts extends Component {
       .then((response) => response.json())
       .then((responseData) => {
 
-        console.log(responseData);
-        if (responseData[0].status == 'success') {
+        console.log(responseData[0]);
+        if (responseData[0] == 'success') {
           
-          this.setState({result: 'Your message has been recieved.'});
+          this.setState({result: 'Your message has been received.'});
           
         } else {
         
@@ -98,13 +104,13 @@ class Contacts extends Component {
           <Container theme={theme} style={{backgroundColor: '#384850'}}>
               <Image source={require('../../../images/glow2.png')} style={styles.container} >
               <Header>
-                  <Button transparent> </Button>
+              <Button transparent onPress={this.props.openDrawer} >
+                  <Icon name='ios-menu' style={{fontSize: 30, lineHeight: 32}} />
+              </Button>
 
                   <Title>Contact Us</Title>
 
-                  <Button transparent onPress={this.props.openDrawer} >
-                      <Icon name='ios-menu' style={{fontSize: 30, lineHeight: 32}} />
-                  </Button>
+                  
               </Header>
               <Content>
   <View>

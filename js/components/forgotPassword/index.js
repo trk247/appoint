@@ -19,83 +19,85 @@ class ForgotPassword extends Component {
     super(props);
     this.state = {
       email: '',
-      password: '',
-      firstName: '',
-      lastName: '',
-      medicalId: '',
       result: ''
     };
   }
 
   navigateTo(route) {
-      // this.props.closeDrawer();
       this.props.replaceOrPushRoute(route);
   }
-
-  signUp() {
+  
+  validateEmail(email) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+  };;
+  
+  forgotPassword() {
     
     let {email,password, firstName, lastName, medicalId} = this.state;
     let error = '';
 
-    if (email == '') {
+    if (!this.validateEmail(email)) {
       error = "Please enter in a valid email.\n";
     }
-    if (password == '') {
-      error += "Please enter in a password.\n";
-    }
-
-    if (firstName == '') {
-      error += "Please enter in your First Name.\n";
-    }
-    if (lastName == '') {
-      error += "Please enter in your Last Name.\n";
-    }
-
 
     if (error == '') {
-
-      fetch('http://www.appointshare.com/signup.php', {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          email: email,
-          password: password,
-          firstName: firstName,
-          lastName: lastName,
-          medicalId: medicalId
-        })
-      })
-      .then((response) => response.json())
-      .then((responseData) => {
-        
-        if (responseData == 'email_in_use') {
-          alert('Email already exists');
-          
-        } else{
-        alert(responseData, 'Success');
-        // console.log(responseData);
-    
-         this.popRoute();
-        }
-      })
-      .catch((error) => {
-        console.warn(error);
-      })
-      .done();
+      this.setState({result: 'further'});
+      // fetch('http://www.appointshare.com/forgot_password', {
+      //   method: 'POST',
+      //   headers: {
+      //     'Accept': 'application/json',
+      //     'Content-Type': 'application/json'
+      //   },
+      //   body: JSON.stringify({
+      //     email: email
+      //   })
+      // })
+      // .then((response) => response.json())
+      // .then((responseData) => {
+      //   
+      //   if (responseData == 'email_invalid') {
+      //     alert('Invalid Email');
+      //     
+      //   } else{
+      //     alert(responseData, 'Success');
+      //     // console.log(responseData);
+      //    this.popRoute();
+      //   }
+      // })
+      // .catch((error) => {
+      //   console.warn(error);
+      // })
+      // .done();
     } else {
       this.setState({result: error});
     }
 
   }
-
-
+    
+    steps() {
+      switch (this.state.step) {
+        case 1:
+          return (<Step1 />)
+      }
+    }
+    
     popRoute() {
         this.props.popRoute();
     }
-
+    
+    getResultMessage() {
+      console.log('++'+this.state.result);
+      if (this.state.result == 'further')  {
+        console.log('---');
+        return (<Text>Check your email to continue.</Text>);
+      } else if (this.state.result != '')  {
+        return (<Text style={styles.feedback}>{this.state.result}</Text>);
+      } else {
+        return null;
+      }
+    }
+    
     render() {
         return (
             <Container theme={theme} style={{backgroundColor:'#384850'}}>
@@ -110,17 +112,20 @@ class ForgotPassword extends Component {
 
                     <Content padder style={{backgroundColor: 'transparent'}}>
                         <View padder>
-                        <Text style={styles.feedback}>{this.state.result}</Text>
+                        
 
-                            
                             <View style={styles.mb25}>
-                            <Text style={styles.message}>Enter in your Email to receive your code to reset your password.</Text>
-                                <InputGroup>
-                                    <Icon name='ios-mail-open-outline' />
-                                    <Input placeholder='Email'
-                                    onChangeText={(text) => this.setState({email  : text})}
-                                     />
-                                </InputGroup>
+                  
+                                <Text style={styles.text}>Enter in your Email to receive your code to reset your password.</Text>
+                                {this.getResultMessage()}
+                                <View style={styles.mb25}>
+                                    <InputGroup>
+                                        <Icon name='ios-mail' />
+                                        <Input placeholder='Email' 
+                                        onChangeText={(text) => this.setState({email  : text})}/>
+                                    </InputGroup>
+                                </View>
+                              
                             </View>
 
                             <Button rounded block style={{backgroundColor: '#fff', marginTop: 10}} 

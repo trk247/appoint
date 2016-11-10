@@ -14,7 +14,6 @@ import styles from './styles';
 
 const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
-
 class Appointments extends Component {
 
   constructor(props) {
@@ -75,8 +74,9 @@ class Appointments extends Component {
         if (typeof rowData.patient_name === "undefined") {
           return(<Text></Text>);
         }
-        
+
         return (
+          <View style={styles.cardContainer}>
           <Card transparent foregroundColor='#fff' style={styles.card}>
               <CardItem style={styles.cardHeader}  header>
                   <Thumbnail source={require('../../../images/ach.png')} />
@@ -86,18 +86,13 @@ class Appointments extends Component {
               </CardItem>
 
               <CardItem style={styles.cardItem} >
-              <Text style={styles.item}>Date: {rowData.date}</Text>
-              <Text style={styles.item}>Time: {rowData.time}</Text>
-              <Text style={styles.item}>Location: {rowData.location}</Text>
-              <Text style={styles.item}>Status: {rowData.status}</Text>
-              <Text style={styles.item}>Birth Date: {rowData.birth_date_string}</Text>
-              
-              <Text style={styles.item}>Type: {rowData.appt_type}</Text>
-              <Text style={styles.item}>Patient Number: {rowData.patient_number}</Text>
-            
-          
+                <Text style={styles.item}>Date: {rowData.date}</Text>
+                <Text style={styles.item}>Time: {rowData.time}</Text>
+                <Text style={styles.item}>Location: {rowData.location}</Text>        
+                <Text style={styles.item}>{rowData.description}</Text>            
               </CardItem>
           </Card>
+          </View>
       
       
         
@@ -109,13 +104,13 @@ class Appointments extends Component {
           <Container theme={theme} style={{backgroundColor: '#384850'}}>
               <Image source={require('../../../images/glow2.png')} style={styles.container} >
               <Header>
-                  <Button transparent> </Button>
+              <Button transparent onPress={this.props.openDrawer} >
+                  <Icon name='ios-menu' style={{fontSize: 30, lineHeight: 32}} />
+              </Button>
 
                   <Title>Upcoming Appointments</Title>
 
-                  <Button transparent onPress={this.props.openDrawer} >
-                      <Icon name='ios-menu' style={{fontSize: 30, lineHeight: 32}} />
-                  </Button>
+                  
               </Header>
 
                   <Content style={{backgroundColor: 'transparent'}}>

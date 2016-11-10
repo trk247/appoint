@@ -12,18 +12,19 @@ module.exports = StyleSheet.create({
     mb25: {
     	marginBottom: 25
     },
-    viewFeedback: {
-      borderColor: '#000',
-      borderWidth: 1,
-      borderRadius: 2,
-      
+    viewFeedback: {    
+      padding: 10,
     },
     feedback: {
       textAlign: 'left',
+      overflow: 'hidden',
       color: '#D63301',
       backgroundColor: '#FFCCBA',
       fontWeight: 'bold',
-      borderRadius: 2,
-      padding: 10
+      borderWidth: 1,
+      borderRadius: 10,
+      borderColor: '#000000',
+      borderBottomWidth: 2,
+      padding: 10,
     },
 });

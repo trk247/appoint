@@ -10,6 +10,11 @@ module.exports = StyleSheet.create({
         height: null,
         flex: 1
     },
+    title: {
+
+
+      backgroundColor: 'white'
+    },
     card: {
         borderWidth: 0
     },

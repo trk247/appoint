@@ -24,8 +24,8 @@ var pendingNotifications = [];
 
 OneSignal.configure({
     onIdsAvailable: function(device) {
-        console.log('UserId = ', device.userId);
-        console.log('PushToken = ', device.pushToken);        
+        // console.log('UserId = ', device.userId);
+        // console.log('PushToken = ', device.pushToken);        
         
         try {
           AsyncStorage.setItem('@UserId:key', JSON.stringify(device.userId));
@@ -41,7 +41,7 @@ OneSignal.configure({
     },
   onNotificationOpened: function(message, data, isActive) {
       var notification = {message: message, data: data, isActive: isActive};
-      console.log('NOTIFICATION OPENED: ', notification);
+      // console.log('NOTIFICATION OPENED: ', notification);
       //if (!_navigator) { // Check if there is a navigator object. If not, waiting with the notification.
       //    console.log('Navigator is null, adding notification to pending list...');
           pendingNotifications.push(notification);

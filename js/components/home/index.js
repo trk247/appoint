@@ -5,7 +5,7 @@ import { Image, View, AsyncStorage } from 'react-native';
 import { connect } from 'react-redux';
 
 import { openDrawer } from '../../actions/drawer';
-import { popRoute, replaceRoute } from '../../actions/route';
+import { popRoute, replaceRoute, pushNewRoute } from '../../actions/route';
 
 import { Container, Header, Title, Content, Button, Icon, List, ListItem, Text, Footer } from 'native-base';
 import FooterComponent from './../footer';
@@ -21,9 +21,13 @@ class Home extends Component {
 
     constructor(props) {
         super(props);
-    
-    }
+        this.state = {
+          content: ''
+        };
 
+        
+        this.getContent();
+    }
     replaceRoute(route) {
         this.props.replaceRoute(route);
     }
@@ -32,25 +36,52 @@ class Home extends Component {
         this.props.popRoute();
     }
 
+    
+    pushNewRoute(route) {
+         this.props.pushNewRoute(route);
+    }
+
+    getContent() {
+
+      fetch('http://app.appointshare.com/remote_content', {
+  
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          content: 'home',
+        })
+      })
+      .then((response) => response.json())
+      .then((responseData) => {
+        this.setState({content: responseData})
+        
+      });
+    }
+    
+    
     render() {
       
   
         AsyncStorage.getItem("@uid:key").then((value) => {
-          console.log(value);
+          console.log('uid:' + value);
         }).done();
         
       
         return (
+            
             <Container theme={theme} style={{backgroundColor: '#384850'}}>
                 <Image source={require('../../../images/glow2.png')} style={styles.container} >
                     <Header>
-                        <Button transparent> </Button>
+                    <Button transparent onPress={this.props.openDrawer} >
+                        <Icon name='ios-menu' style={{fontSize: 30, lineHeight: 32}} />
+                    </Button>
 
                         <Title>Home</Title>
 
-                        <Button transparent onPress={this.props.openDrawer} >
-                            <Icon name='ios-menu' style={{fontSize: 30, lineHeight: 32}} />
-                        </Button>
+
                     </Header>
 
                     <Content padder style={{backgroundColor: 'transparent'}}>
@@ -58,7 +89,7 @@ class Home extends Component {
                             <ListItem iconLeft >
                                 <Icon name='ios-pulse'/>
                                 
-                                <Text>...</Text>
+                                <Text>{this.state.content}</Text>
                                 
                               
                             </ListItem>
@@ -81,7 +112,8 @@ function bindAction(dispatch) {
     return {
         openDrawer: ()=>dispatch(openDrawer()),
         popRoute: () => dispatch(popRoute()),
-        replaceRoute:(route)=>dispatch(replaceRoute(route))
+        replaceRoute:(route)=>dispatch(replaceRoute(route)),
+        pushNewRoute:(route)=>dispatch(pushNewRoute(route))
     }
 }
 

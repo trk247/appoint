@@ -37,7 +37,9 @@ class SignUp extends Component {
     }).done();
     
   }
-
+  replaceRoute(route) {
+      this.props.replaceRoute(route);
+  }
   navigateTo(route) {
       // this.props.closeDrawer();
       this.props.replaceOrPushRoute(route);
@@ -92,12 +94,9 @@ class SignUp extends Component {
           
         } else{
         alert(responseData, 'Success');
-    
-         this.popRoute();
+        this.replaceRoute('home');
+        //  this.popRoute();
         }
-      })
-      .catch((error) => {
-        console.warn(error);
       })
       .done();
     } else {
@@ -109,9 +108,12 @@ class SignUp extends Component {
   renderFeedback () {
       if (this.state.result) {
           return (
-            <View style={styles.viewFeedback}>
-            <Text style={styles.feedback}>{this.state.result}</Text>
-            </View>
+          
+              <View style={styles.viewFeedback}>
+                <Text style={styles.feedback}>{this.state.result}</Text>
+              </View>
+            
+              
           );
       } else {
           return null;
@@ -205,7 +207,8 @@ class SignUp extends Component {
 function bindAction(dispatch) {
     return {
         popRoute: () => dispatch(popRoute()),
-        replaceOrPushRoute:(route)=>dispatch(replaceOrPushRoute(route))
+        replaceOrPushRoute:(route)=>dispatch(replaceOrPushRoute(route)),
+        replaceRoute:(route)=>dispatch(replaceRoute(route))
     }
 }
 

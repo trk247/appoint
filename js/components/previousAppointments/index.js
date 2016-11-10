@@ -77,27 +77,26 @@ class PreviousAppointments extends Component {
         }
         
         return (
-          <Card transparent foregroundColor='#fff' style={styles.card}>
-              <CardItem style={styles.cardHeader}  header>
-                  <Thumbnail source={require('../../../images/ach.png')} />
-                  <Text>{rowData.patient_name}</Text>
-                  
-                  <Text style={styles.date}>Appointment Time: {rowData.time}</Text>
-              </CardItem>
+          <View style={styles.cardContainer}>
+            <Card transparent foregroundColor='#fff' style={styles.card}>
+                <CardItem style={styles.cardHeader}  header>
+                    <Thumbnail source={require('../../../images/ach.png')} />
+                    <Text>{rowData.patient_name}</Text>
+                    
+                    <Text style={styles.date}>Appointment Time: {rowData.time}</Text>
+                </CardItem>
 
-              <CardItem style={styles.cardItem} >
-              <Text style={styles.item}>Date: {rowData.date}</Text>
-              <Text style={styles.item}>Time: {rowData.time}</Text>
-              <Text style={styles.item}>Location: {rowData.location}</Text>
-              <Text style={styles.item}>Status: {rowData.status}</Text>
-              <Text style={styles.item}>Birth Date: {rowData.birth_date_string}</Text>
+                <CardItem style={styles.cardItem} >
+                <Text style={styles.item}>Date: {rowData.date}</Text>
+                <Text style={styles.item}>Time: {rowData.time}</Text>
+                <Text style={styles.item}>Location: {rowData.location}</Text>
+                <Text style={styles.item}>{rowData.description}</Text>
+                
               
-              <Text style={styles.item}>Type: {rowData.appt_type}</Text>
-              <Text style={styles.item}>Patient Number: {rowData.patient_number}</Text>
             
-          
-              </CardItem>
-          </Card>
+                </CardItem>
+            </Card>
+          </View>
       
       
         
@@ -109,13 +108,13 @@ class PreviousAppointments extends Component {
           <Container theme={theme} style={{backgroundColor: '#384850'}}>
               <Image source={require('../../../images/glow2.png')} style={styles.container} >
               <Header>
-                  <Button transparent> </Button>
+              <Button transparent onPress={this.props.openDrawer} >
+                  <Icon name='ios-menu' style={{fontSize: 30, lineHeight: 32}} />
+              </Button>
 
                   <Title>Previous Appointments</Title>
 
-                  <Button transparent onPress={this.props.openDrawer} >
-                      <Icon name='ios-menu' style={{fontSize: 30, lineHeight: 32}} />
-                  </Button>
+                  
               </Header>
 
                   <Content style={{backgroundColor: 'transparent'}}>

@@ -14,19 +14,26 @@ import styles from './styles';
 import IconFA from 'react-native-vector-icons/FontAwesome';
 
 const overviewIcon = (<IconFA name="newspaper-o" size={28} style={{textAlign: 'center'}} color="#fff" />);
-const groupIcon = (<IconFA name="users" size={28} color="#fff" style={{textAlign: 'center'}} />);
+const groupIcon = (<IconFA name="cloud" size={28} color="#fff" style={{textAlign: 'center'}} />);
 const calendarIcon = (<IconFA name="calendar" size={28} color="#fff" style={{textAlign: 'center'}} />);
 const newsIcon = (<IconFA name="inbox" size={28} color="#fff" style={{textAlign: 'center'}} />);
 const alertIcon = (<IconFA name="bell" size={28} color="#fff" style={{textAlign: 'center'}} />);
 
 class Footer extends Component {
-
+constructor(props) {
+	super(props);
+	console.log(this.props);
+}
 	navigateTo(route) {
         this.props.closeDrawer(); 
         this.props.replaceOrPushRoute(route);
     }
 
 	render() {
+		// <TouchableOpacity onPress={() => this.navigateTo('messages')}>
+		// 	{alertIcon}
+		// 	<Text style={styles.iconText}>Messages</Text>
+		// </TouchableOpacity>
 		return (
 			<View style={styles.footer}>
 			
@@ -48,13 +55,10 @@ class Footer extends Component {
 			
 				<TouchableOpacity onPress={() => this.navigateTo('groups')}>
 					{groupIcon}
-					<Text style={styles.iconText}>Groups</Text>
+					<Text style={styles.iconText}>Reviews</Text>
 				</TouchableOpacity>
 			
-				<TouchableOpacity onPress={() => this.navigateTo('messages')}>
-					{alertIcon}
-					<Text style={styles.iconText}>Messages</Text>
-				</TouchableOpacity>
+
 								
 			</View>
 		);

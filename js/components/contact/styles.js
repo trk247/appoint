@@ -57,6 +57,22 @@ module.exports = StyleSheet.create({
     borderRadius: 2,
     padding: 10
   },
+  viewGreenFeedback: {
+    borderColor: '#000',
+    borderWidth: 1,
+    borderRadius: 2,
+    margin:5
+  },
+  greenFeedback: {
+    textAlign: 'left',
+    color: '#4F8A10',
+    backgroundColor: '#DFF2BF',
+    fontWeight: 'bold',
+    borderRadius: 2,
+    padding: 10
+    
+  }
+  
     
     
 

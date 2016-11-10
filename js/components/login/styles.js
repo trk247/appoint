@@ -18,29 +18,35 @@ module.exports = StyleSheet.create({
         height: null,
         // backgroundColor: 'transparent'
     },
-
     bg: {
         flex: 1,
-        marginTop: (deviceHeight/2)-45,
+        marginTop: (deviceHeight/2) - 105,
         backgroundColor: '#0097d6',
         paddingTop: 5,
         paddingLeft: 20,
         paddingRight: 20,
-        paddingBottom: 70
+        paddingBottom: 0
     },
-    viewFeedback: {
-      borderColor: '#000',
-      borderWidth: 1,
-      borderRadius: 2,
-      
+    viewFeedback: {    
+      flex:1,
+      padding: 0,
+    },
+    viewFeedbackHidden: {
+      height: 10,
+      opacity:0
     },
     feedback: {
+      flex:1,
       textAlign: 'left',
+      overflow: 'hidden',
       color: '#D63301',
       backgroundColor: '#FFCCBA',
       fontWeight: 'bold',
-      borderRadius: 2,
-      padding: 10
+      borderWidth: 1,
+      borderRadius: 10,
+      borderColor: '#000000',
+      borderBottomWidth: 2,
+      padding: 10,
     },
     underlayColor: {
       color: '#fff'

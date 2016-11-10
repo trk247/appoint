@@ -7,17 +7,41 @@ import { connect } from 'react-redux';
 import { openDrawer } from '../../actions/drawer';
 import { popRoute } from '../../actions/route';
 
-import { Container, Header, Title, Content, Text, Button, Icon, Card, CardItem, View } from 'native-base';
+import { Container, Header, Title, Content, Text, Button, Icon, Card, CardItem, View, Footer } from 'native-base';
 
 import theme from '../../themes/base-theme';
 import styles from './styles';
-
+import FooterComponent from './../footer';
 class Messages extends Component {
-
+  constructor(props) {
+      super(props);
+      this.state = {
+        content: ''
+      };
+      this.getContent();
+  }
     popRoute() {
         this.props.popRoute();
     }
+    getContent() {
 
+      fetch('http://app.appointshare.com/remote_content', {
+  
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          content: 'messages',
+        })
+      })
+      .then((response) => response.json())
+      .then((responseData) => {
+        this.setState({content: responseData})
+        
+      });
+    }
     render() {
         return (
             <Container theme={theme} style={{backgroundColor: '#384850'}}>
@@ -36,9 +60,12 @@ class Messages extends Component {
 
                     <Content padder style={{backgroundColor: 'transparent'}}>
                         <View>
-                        <Text>...</Text>
+                        <Text>{this.state.content}</Text>
                         </View>
                     </Content>
+                    <Footer style={{borderTopWidth: 0}}>
+                        <FooterComponent navigator={this.props.navigator} />
+                    </Footer>
                 </Image>
             </Container>
         )

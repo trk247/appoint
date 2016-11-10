@@ -37,15 +37,13 @@ class Calendar extends Component {
             <Container theme={theme} style={{backgroundColor: '#384850'}}>
                 <Image source={require('../../../images/glow2.png')} style={styles.container} >
                     <Header>
-                        <Button transparent onPress={() => this.popRoute()}>
-                            <Icon name='ios-arrow-back' style={{fontSize: 30, lineHeight: 32}} />
-                        </Button>
+                    <Button transparent onPress={this.props.openDrawer}>
+                        <Icon name='ios-menu' style={{fontSize: 30, lineHeight: 32}} />
+                    </Button>
 
                         <Title>Calendar</Title>
 
-                        <Button transparent onPress={this.props.openDrawer}>
-                            <Icon name='ios-menu' style={{fontSize: 30, lineHeight: 32}} />
-                        </Button>
+                      
                     </Header>
 
                     <Content padder style={{backgroundColor: 'transparent'}} >
