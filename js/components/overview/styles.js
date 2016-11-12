@@ -32,5 +32,39 @@ var { StyleSheet } = React;
       },
       date: {
         textAlign: 'center'
-      }
+      },
+      checkBoxStyle: {
+        flexDirection:'row', 
+        alignItems:'center', 
+        marginLeft: 20,
+        marginBottom: 5
+      },
+      rowContainer: {
+       flexDirection: 'row',
+       justifyContent: 'center',
+       marginBottom: 0
+     },
+     text: {
+       fontSize: 20,
+       textAlign: 'center',
+       fontWeight: '500',
+       margin: 10,
+       color: '#fff',
+     },
+     dayText: {
+       fontSize: 20,
+       textAlign: 'center',
+       fontWeight: '400',
+       margin: 10,
+       color: '#fff',
+     },
+     calendarText: {
+       fontSize: 20,
+       textAlign: 'center',
+       fontWeight: '500',
+       color: '#fff',
+     },
+     submit: {
+       width: 50
+     }
   });

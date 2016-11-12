@@ -1,7 +1,7 @@
 'use strict';
 
 import React, { Component } from 'react';
-import { Image, Platform, AsyncStorage, ScrollView, Dimensions } from 'react-native';
+import { ActivityIndicator, Image, Platform, AsyncStorage, ScrollView, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import { pushNewRoute, replaceRoute } from '../../actions/route';
 import { Container, Content, Text, TextInput, InputGroup, Input, Button, List, Icon, View, ListItem } from 'native-base';
@@ -20,7 +20,8 @@ class Login extends Component {
             password: '',
             result: '',
             userId: '',
-            pushToken: ''
+            pushToken: '',
+            animating: false
         };
         
         // one signal tokens
@@ -32,12 +33,14 @@ class Login extends Component {
             this.setState({pushToken: JSON.parse(value)});
         }).done();      
     }
+    
     validateEmail(email) {
       var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return re.test(email);
-    };;
+    }
+    
     signIn() {
-      
+      this.setState({animating: true});
       let { email, password, userId, pushToken } = this.state;
       let errors = '';
 
@@ -92,7 +95,19 @@ class Login extends Component {
       }
 
     }
-    
+    activity() {
+      if (this.state.animating) {
+            return (
+          <ActivityIndicator
+      animating={this.state.animating}
+      style={[styles.centering, {height: 80}]}
+      size="large"
+      color="#ffffff"
+    />);
+    } else {
+      return null;
+    }
+    }
     replaceRoute(route) {
         this.props.replaceRoute(route);
     }
@@ -138,6 +153,7 @@ class Login extends Component {
                     <Image source={require('../../../images/glow2.png')} style={styles.container}>
                         <Image style={styles.shadow} source={require('../../../images/logo.png')} >                    
                             <View style={styles.bg}>
+                            {this.activity()}
                             {this.renderFeedback()}
                                 <View style={{marginBottom: 20, marginTop: 0}}>
                                     <InputGroup >

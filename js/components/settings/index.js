@@ -7,12 +7,12 @@ import { connect } from 'react-redux';
 import { openDrawer } from '../../actions/drawer';
 import { popRoute } from '../../actions/route';
 
-import { Container, Header, Title, Content, Text, Button, Icon, Card, CardItem, View } from 'native-base';
+import { Container, Header, Title, Content, Text, Button, Icon, Card, CardItem, View, Footer } from 'native-base';
 
 import theme from '../../themes/base-theme';
 import styles from './styles';
 var moment = require('moment');
-
+import FooterComponent from './../footer';
 import ModalPicker from 'react-native-modal-picker';
 var CalendarPicker = require('react-native-calendar-picker'), CalendarPicker2;
 
@@ -37,7 +37,7 @@ class Settings extends Component {
   
   onSubmit() {
     let {timeDate, date, uid} = this.state;
-    fetch('http://app.appointshare.com/remote_preferences', {
+    fetch('http://app.appointshare.com/schedule_appointments', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -116,12 +116,12 @@ class Settings extends Component {
               <Button transparent onPress={this.props.openDrawer} >
                   <Icon name='ios-menu' style={{fontSize: 30, lineHeight: 32}} />
               </Button>
-                <Title>Settings</Title>    
+                <Title>Appointment Request</Title>    
             </Header>
                 
             <Content style={{backgroundColor: 'transparent'}}>
               <View >
-                <Text style={styles.text}>Enter your preferred appointment time to recieve notifications when someone cancels.</Text>
+                <Text style={styles.text}>Schedule an Appointment Request.</Text>
                 <View style={styles.rowContainer}>
                   <TouchableOpacity
                     onPress={this.subtractTime.bind(this)}
@@ -155,6 +155,9 @@ class Settings extends Component {
               </Button>                
            </View>
            </Content>
+           <Footer style={{borderTopWidth: 0}}>
+               <FooterComponent navigator={this.props.navigator} />
+           </Footer>
            </Image>
            </Container>
        );

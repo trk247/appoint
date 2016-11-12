@@ -169,7 +169,7 @@ class AppNavigator extends Component {
             case 'contact':
                 return <Contact navigator={navigator} />;
             case 'calendar':
-                return <Settings navigator={navigator} />;
+                return <Calendar navigator={navigator} />;
             case 'form':
                 return <Form navigator={navigator} />;
             case 'modal':

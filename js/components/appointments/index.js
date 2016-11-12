@@ -7,10 +7,11 @@ import { connect } from 'react-redux';
 import { openDrawer } from '../../actions/drawer';
 import { popRoute } from '../../actions/route';
 
-import { Container, Header, Title, Content, Text, Button, Icon, Card, CardItem, View, Thumbnail } from 'native-base';
+import { Footer, Container, Header, Title, Content, Text, Button, Icon, Card, CardItem, View, Thumbnail } from 'native-base';
 
 import theme from '../../themes/base-theme';
 import styles from './styles';
+import FooterComponent from './../footer';
 
 const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
@@ -126,6 +127,9 @@ class Appointments extends Component {
 
                     
                   </Content>
+                  <Footer style={{borderTopWidth: 0}}>
+                      <FooterComponent navigator={this.props.navigator} />
+                  </Footer>
               </Image>
           </Container>
         )

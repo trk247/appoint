@@ -16,7 +16,7 @@ import IconFA from 'react-native-vector-icons/FontAwesome';
 const overviewIcon = (<IconFA name="newspaper-o" size={28} style={{textAlign: 'center'}} color="#fff" />);
 const groupIcon = (<IconFA name="cloud" size={28} color="#fff" style={{textAlign: 'center'}} />);
 const calendarIcon = (<IconFA name="calendar" size={28} color="#fff" style={{textAlign: 'center'}} />);
-const newsIcon = (<IconFA name="inbox" size={28} color="#fff" style={{textAlign: 'center'}} />);
+const gearIcon = (<IconFA name="gear" size={28} color="#fff" style={{textAlign: 'center'}} />);
 const alertIcon = (<IconFA name="bell" size={28} color="#fff" style={{textAlign: 'center'}} />);
 
 class Footer extends Component {
@@ -43,14 +43,14 @@ constructor(props) {
 					<Text style={styles.iconText}>Overview</Text>
 				</TouchableOpacity>
 
-				<TouchableOpacity onPress={() => this.navigateTo('news')}>
-					{newsIcon}
-					<Text style={styles.iconText}>News</Text>
+				<TouchableOpacity onPress={() => this.navigateTo('settings')}>
+					{calendarIcon}
+					<Text style={styles.iconText}>Schedule</Text>
 				</TouchableOpacity>
 				
 				<TouchableOpacity onPress={() => this.navigateTo('calendar')}>
-					{calendarIcon}
-					<Text style={styles.iconText}>Calendar</Text>
+					{gearIcon}
+					<Text style={styles.iconText}>Preferences</Text>
 				</TouchableOpacity>
 			
 				<TouchableOpacity onPress={() => this.navigateTo('groups')}>

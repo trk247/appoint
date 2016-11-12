@@ -18,6 +18,11 @@ module.exports = StyleSheet.create({
         height: null,
         // backgroundColor: 'transparent'
     },
+    centering: {
+  alignItems: 'center',
+  justifyContent: 'center',
+  padding: 8,
+},
     bg: {
         flex: 1,
         marginTop: (deviceHeight/2) - 105,

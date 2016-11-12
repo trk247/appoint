@@ -7,8 +7,9 @@ import { connect } from 'react-redux';
 import { openDrawer } from '../../actions/drawer';
 import { popRoute } from '../../actions/route';
 
-import { Container, Content, Header, Title, Button, TextArea, InputGroup, Input, Icon, View, Tabs } from 'native-base';
+import { Footer, Container, Content, Header, Title, Button, TextArea, InputGroup, Input, Icon, View, Tabs } from 'native-base';
 
+import FooterComponent from './../footer';
 import theme from '../../themes/base-theme';
 import styles from './styles';
 // import login from './login-theme';
@@ -109,7 +110,7 @@ class Groups extends Component {
                   <Icon name='ios-menu' style={{fontSize: 30, lineHeight: 32}} />
               </Button>
 
-                  <Title>Contact Us</Title>
+                  <Title>Appointment Review</Title>
 
                   
               </Header>
@@ -136,6 +137,9 @@ class Groups extends Component {
       </Button>
                     </View>
                     </Content>
+                    <Footer style={{borderTopWidth: 0}}>
+                        <FooterComponent navigator={this.props.navigator} />
+                    </Footer>
                 </Image>
             </Container>
         )
